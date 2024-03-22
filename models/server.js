@@ -9,8 +9,19 @@ class Server{
     constructor(){
         this.app = app;
         this.puerto = process.env.PORT
-        this.PathUsuarios = '/api/usuarios'
-        
+        this.PathUsuarios     = '/api/usuarios'
+        this.AuthUsuarios     = '/api/auth'
+        this.PathHabitaciones = '/api/habitaciones'
+        this.PathEventos      = '/api/eventos'
+        this.PathPaquetes     = '/api/paquetes'
+        this.PathServicios    = '/api/servicios'
+        this.PathAtencionCL   = '/api/AtencionAlCliente'
+        this.PathReservas     = '/api/Reservas'
+        this.PathReservas     = '/api/Reservas'
+        this.PathValoraciones = '/api/Valoraciones'
+        this.PathAgendados    =  '/api/Agendados'
+
+
         this.conectarDB()
         this.middlewares()
         this.routes()
@@ -33,7 +44,16 @@ class Server{
     }
 
     routes(){
+        this.app.use(this.AuthUsuarios, require('../routes/auth') )
+        this.app.use(this.PathEventos, require('../routes/eventos') )
+        this.app.use(this.PathHabitaciones, require('../routes/habitaciones') )
         this.app.use(this.PathUsuarios, require('../routes/users') )
+        this.app.use(this.PathPaquetes, require('../routes/paquetes') )
+        this.app.use(this.PathServicios, require('../routes/servicios') )
+        this.app.use(this.PathAtencionCL, require('../routes/annadir-asignar-q-s') )
+        this.app.use(this.PathReservas, require('../routes/reservas') )
+        this.app.use(this.PathValoraciones, require('../routes/valoraciones') )
+        this.app.use(this.PathAgendados, require('../routes/mostrar-agendado') )
     }  
     listen (){
         app.listen( this.puerto ) 

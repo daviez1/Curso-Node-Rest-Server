@@ -19,12 +19,30 @@
 <body>
     <div>
         <h1>Hotel</h1>
-        <button class="hab">Mostrar Habitaciones</button>
+        <button class="hab" onclick="getHabitaciones()">Mostrar Habitaciones</button>
         <button class="cl">Mostrar Clientes</button>
         <button class="reserva">Mostrar reserva</button>
         <button class="emp">Mostrar Empleados</button>
         <button class="ent">Mostrar entretenimientos</button>
     </div>
+    
+</body>
+</html>
+
 </body>
 <script src="appJugarBD.js"></script>
+<script>
+        async function getHabitaciones() {
+            try {
+                const response = await fetch('http://localhost:8080/api/habitaciones');
+                if (!response.ok) {
+                    throw new Error(`Error al obtener las habitaciones. Código de estado: ${response.status}`);
+                }
+                const data = await response.json();
+                console.log('Datos de las habitaciones:', data);
+            } catch (error) {
+                console.error('Error:', error.message);
+            }
+        }
+</script>
 </html>

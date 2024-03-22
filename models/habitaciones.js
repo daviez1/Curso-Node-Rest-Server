@@ -1,37 +1,35 @@
 const { Schema, model } = require('mongoose')
 
-const UsuarioSchema = Schema({
-    nombre:{
-        type: String,
-        required: [true, "El nombre es obligatorio"]
+const HabitacionSchema = Schema({
+    numero:{
+        type: Number,
     },
-    correo:{
-        type: String,
-        required: [true, "El correo es obligatorio"]
-    },
-    password:{
+    piso:{
+        type: Number,
+        },
+    tipo:{
         type: String,
         required: [true, "La contraseña es obligatoria"]
     },
-    rol:{
-        type: String,
-        required: [true, "El rol es obligatorio"],
-        default: 'USER_ROLE',
-        enum:["ADMIN_ROLE","USER_ROLE"]   
-     },
+    disponibilidad:{
+        type: Boolean
+    },
+    costo:{
+        type: Number
+    },
     estado:{
         type: Boolean,
         default: true,
     }
 })
 
-UsuarioSchema.methods.toJSON = function(){
-    const { __v,password,_id, ...usuario } = this.toObject();  //Para obtener el resto de los datos de usuario
-    usuario.uid = _id  //Para que visiblemente sea uid y no id
-    return usuario;
+HabitacionSchema.methods.toJSON = function(){
+    const { __v,_id, ...habitaciones } = this.toObject();  //Para obtener el resto de los datos de usuario
+    habitaciones.uid = _id  //Para que visiblemente sea uid y no id
+    return habitaciones;
 }
 
-module.exports = model('Usuario', UsuarioSchema)
+module.exports = model('Habitacion', HabitacionSchema)
 
 // const { Model } = require("sequelize");
 // const { client } = require("../dbConeccion/config");

@@ -1,37 +1,43 @@
 const { Schema, model } = require('mongoose')
 
-const UsuarioSchema = Schema({
+const EventoSchema = Schema({
+    fecha:{
+        type: Date,
+        required: [true, "La fecha es obligatoria"]
+    },
     nombre:{
         type: String,
         required: [true, "El nombre es obligatorio"]
+        },
+    adultos:{
+        type: Number,
+        required: [true, "La cantidad de adultos es obligatoria"]
     },
-    correo:{
-        type: String,
-        required: [true, "El correo es obligatorio"]
+    ninios:{
+        type: Number,
+        required: [true, "La cantidad de niños es obligatoria"]
     },
-    password:{
-        type: String,
-        required: [true, "La contraseña es obligatoria"]
+    costo:{
+        type: Number,
+        required: [true, "El precio es obligatorio"]
     },
-    rol:{
+    descripcion:{
         type: String,
-        required: [true, "El rol es obligatorio"],
-        default: 'USER_ROLE',
-        enum:["ADMIN_ROLE","USER_ROLE"]   
-     },
+        required: [true, "La descripción es obligatorio"]
+    },
     estado:{
         type: Boolean,
         default: true,
     }
 })
 
-UsuarioSchema.methods.toJSON = function(){
-    const { __v,password,_id, ...usuario } = this.toObject();  //Para obtener el resto de los datos de usuario
-    usuario.uid = _id  //Para que visiblemente sea uid y no id
-    return usuario;
+EventoSchema.methods.toJSON = function(){
+    const { __v,_id, ...evento } = this.toObject();  //Para obtener el resto de los datos de usuario
+    evento.uid = _id  //Para que visiblemente sea uid y no id
+    return evento;
 }
 
-module.exports = model('Usuario', UsuarioSchema)
+module.exports = model('Evento', EventoSchema)
 
 // const { Model } = require("sequelize");
 // const { client } = require("../dbConeccion/config");

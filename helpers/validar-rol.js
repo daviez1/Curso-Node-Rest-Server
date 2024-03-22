@@ -9,14 +9,6 @@ const validarRole = async (rol = '') =>{
     }
 }
 
-const emailExiste = async(correo = '')=>{
-
-    const correoExiste = await Usuario.findOne({ correo })
-    if( correoExiste ) {
-         throw new Error(`El correo ${correo} ya existe`)
-    }
-}
-
 const existeUsuarioPorID = async( id )=>{
 
     const existeUsuario = await Usuario.findById( id )
@@ -27,6 +19,5 @@ const existeUsuarioPorID = async( id )=>{
 
 module.exports = {
     validarRole,
-    emailExiste,
     existeUsuarioPorID
 }

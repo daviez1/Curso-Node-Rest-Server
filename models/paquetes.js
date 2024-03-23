@@ -28,7 +28,8 @@ const PaqueteSchema = Schema({
     estado:{
         type: Boolean,
         default: true,
-    }
+    },
+    img: { type: String}
 })
 
 PaqueteSchema.methods.toJSON = function(){

@@ -28,7 +28,8 @@ const EventoSchema = Schema({
     estado:{
         type: Boolean,
         default: true,
-    }
+    },
+    img: { type: String}
 })
 
 EventoSchema.methods.toJSON = function(){

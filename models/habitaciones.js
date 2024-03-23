@@ -20,7 +20,8 @@ const HabitacionSchema = Schema({
     estado:{
         type: Boolean,
         default: true,
-    }
+    },
+    img: { type: String}
 })
 
 HabitacionSchema.methods.toJSON = function(){

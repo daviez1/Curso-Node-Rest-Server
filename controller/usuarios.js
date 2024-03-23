@@ -42,6 +42,10 @@ const usuariosPost = async(req = request, res = response)=> {
    
     const {nombre, password, correo, rol} = req.body;
     
+    const correoExiste = await Usuario.findOne( {correo} )
+
+    if(correoExiste) return res.status(400).json(`Ya existe un usuario con el correo: ${correo}`)
+
     const usuario = await new Usuario( {nombre, password, correo, rol} )
 
     //Encriptar contrasenia

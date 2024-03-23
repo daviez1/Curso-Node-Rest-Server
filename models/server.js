@@ -1,5 +1,6 @@
 const express = require('express')
 const cors = require('cors')
+const fileUpload = require('express-fileupload');
 const { dbConnection } = require('../dbConeccion/config')
 
 const app = express() 
@@ -20,6 +21,7 @@ class Server{
         this.PathReservas     = '/api/Reservas'
         this.PathValoraciones = '/api/Valoraciones'
         this.PathAgendados    =  '/api/Agendados'
+        this.PathUploads      =  '/api/uploads'
 
 
         this.conectarDB()
@@ -39,6 +41,12 @@ class Server{
         //Lectura y parseo
         this.app.use( express.json() ) 
 
+        // Carga de archivo 
+        this.app.use(fileUpload({ // se puede poner limite de tamano
+            useTempFiles : true,
+            tempFileDir : '/tmp/'
+        }))
+
         //Directorio publico
         // this.app.use( express.static('public') )
     }
@@ -54,6 +62,7 @@ class Server{
         this.app.use(this.PathReservas, require('../routes/reservas') )
         this.app.use(this.PathValoraciones, require('../routes/valoraciones') )
         this.app.use(this.PathAgendados, require('../routes/mostrar-agendado') )
+        this.app.use(this.PathUploads, require('../routes/uploads') )
     }  
     listen (){
         app.listen( this.puerto ) 

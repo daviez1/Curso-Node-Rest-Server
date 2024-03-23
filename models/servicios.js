@@ -12,7 +12,8 @@ const ServicioSchema = Schema({
     estado:{
         type: Boolean,
         default: true,
-    }
+    },
+    img: { type: String}
 })
 
 ServicioSchema.methods.toJSON = function(){

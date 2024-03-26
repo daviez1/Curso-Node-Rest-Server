@@ -1,6 +1,6 @@
 const { response, request } = require('express');
 const Reserva = require('../models/reservas');
-const { Usuario } = require('../models');
+const { Usuario, Habitacion } = require('../models');
 
 const obtenerReservas = async(req = request, res = response)=>{
     const reservas = await Reserva.find({})
@@ -35,10 +35,10 @@ const obtenerReservaPorNombre = async(req = request, res = response)=>{
 const ReservaPost = async(req = request, res = response)=> {
    
    try {
-    const { fecha, nombre, adultos, ninios, costo, descripcion, tipo } = req.body;
-    
+    const { fecha, nombre, adultos, ninios, costo, descripcion, tipo, numero } = req.body;
     
     const usuario = await Usuario.findById( req.usuario._id )
+
     
     const data =  {
         descripcion, nombre ,
@@ -46,10 +46,26 @@ const ReservaPost = async(req = request, res = response)=> {
         fecha, adultos, 
         ninios, costo,
         correo: usuario.correo
-        }
-        
-        const reserva = new Reserva( data )
+    }
+    console.log(data.tipo);
+    if (data.tipo == 'HABITACION') {
+        data.numero = numero 
 
+        const habitacion = await Habitacion.findOne({ numero: numero });
+
+        if (habitacion && habitacion.disponibilidad == true) {
+            habitacion.disponibilidad = false;
+            await habitacion.save();
+        }else{
+            return res.status(400).json(`La habitacion numero ${numero} no está disponible`)
+        }
+    }
+    
+
+    console.log(data);
+
+    const reserva = new Reserva( data )
+    
         await reserva.save();
         
         return res.status(200).json(

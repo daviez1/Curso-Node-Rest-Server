@@ -33,6 +33,7 @@ router.post('/', [
     check('adultos', 'La cantidad de adultos es obligatoria').not().isEmpty(),
     check('ninios', 'La cantidad de niños es obligatoria').not().isEmpty(),
     check('costo', 'El costo es obligatorio').not().isEmpty(),
+    check('tipo', 'El tipo es obligatorio').not().isEmpty(),
     validarDatos
 ], ReservaPost)
 

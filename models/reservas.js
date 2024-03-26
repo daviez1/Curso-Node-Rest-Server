@@ -26,10 +26,7 @@ const ReservaSchema = Schema({
         type: String,
         required: [true, "La descripción es obligatorio"]
     },
-    costo:{
-        type: Number,
-        required: [true, "El costo es obligatorio"]
-    },
+    numero: Number,
     usuario: {
         type: Schema.Types.ObjectId,
         ref: 'Usuario',
